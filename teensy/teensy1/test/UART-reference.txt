@@ -1,0 +1,58 @@
+#include <Arduino.h>
+
+// This function is called only once, at reset.
+void setup() {
+  Serial.begin(115200);
+  Serial.println("uLanding Readout"); 
+}
+
+// This function is called continuously, after setup() completes.
+void loop() {
+  int altitude = 0;
+  int data[64];
+  int data_packet[6];
+  int idx;
+  int receiver_checksum;
+  int SNR;
+
+    /// Buffer size = default 64 Bytes, this depends on setting from Arduino board!
+    while (Serial.available() == 63) {
+      delay(20);
+      for(int i=0;i<64;i++){
+        data[i]=Serial.read();
+      }
+
+      for (int j=0;j<12;j++){
+        if (data[10+j] == 0xFE && data[10+j+1] == 0x01){
+          idx = j;
+          break;
+        }
+      }
+      data_packet[0] = data[10+idx];
+      data_packet[1] = data[11+idx];
+      data_packet[2] = data[12+idx];
+      data_packet[3] = data[13+idx];
+      data_packet[4] = data[14+idx];
+      data_packet[5] = data[15+idx];
+
+      altitude = data_packet[2] + (data_packet[3] << 8);
+      SNR = data_packet[4];
+      receiver_checksum = (data_packet[1] + data_packet[2] + data_packet[3] + data_packet[4]) & 0xff;
+ 
+      /// Print received data
+      if (receiver_checksum == data_packet[5]){
+        if (altitude > 0){
+          Serial.print("Checksum passed, Altitude: ");
+          Serial.print (altitude);
+          Serial.print(",  SNR: ");
+          Serial.print (SNR);
+          Serial.print("\n\r");      
+        }else{
+          Serial.print("Checksum passed, but altitude data is not valid");
+        }          
+      }else{
+        Serial.print ("Checksum failed!!!");
+        Serial.print("\n\r");          
+      }             
+    }
+}
