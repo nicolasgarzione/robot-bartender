@@ -1,4 +1,3 @@
-import argparse
 import os
 import sys
 import struct
@@ -9,14 +8,23 @@ import numpy as np
 from picovoice import *
 from pvrecorder import PvRecorder
 
-
 class PicovoiceBartender(Thread):
+    __access_key =  '8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=='
+    #__keyword_path = 'Bartender_en_windows_v2_1_0.ppn'
+    #__context_path = 'Bartender_en_windows_v2_1_0.rhn'
+    #__keyword_path = "C:/Users/nicg1/Desktop/robot-bartender/nano/robotbartender/picovoiceBartender/Bartender_en_windows_v2_1_0.ppn"
+    #__context_path = "C:/Users/nicg1/Desktop/robot-bartender/nano/robotbartender/picovoiceBartender/Bartender_en_windows_v2_1_0.rhn"
+    #__keyword_path = os.path.dirname('Bartender_en_windows_v2_1_0.ppn')
+    #__context_path = os.path.dirname('Bartender_en_windows_v2_1_0.rhn')
+    __keyword_path = os.path.dirname(__file__)+'\Bartender_en_windows_v2_1_0.ppn'
+    __context_path = os.path.dirname(__file__)+'\Bartender_en_windows_v2_1_0.rhn' 
+
     def __init__(
             self,
-            access_key,
-            audio_device_index,
-            keyword_path,
-            context_path,
+            access_key = __access_key,
+            audio_device_index = 0,
+            keyword_path = __keyword_path,
+            context_path = __context_path,
             porcupine_library_path=None,
             porcupine_model_path=None,
             porcupine_sensitivity=0.5,
@@ -136,6 +144,9 @@ class PicovoiceBartender(Thread):
             print(f'index: {i}, device name: {devices[i]}')
 
 
+#access_key = "8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=="
+
+'''
 def main():
     parser = argparse.ArgumentParser()
 
@@ -190,7 +201,7 @@ def main():
         require_endpoint = True
 
     if args.show_audio_devices:
-        PicovoiceBartender.show_audio_devices()
+        pv.show_audio_devices()
     else:
         if not args.keyword_path:
             raise ValueError("Missing path to Porcupine's keyword file.")
@@ -198,7 +209,7 @@ def main():
         if not args.context_path:
             raise ValueError("Missing path to Rhino's context file.")
 
-        PicovoiceBartender(
+        pv(
             access_key=args.access_key,
             audio_device_index=args.audio_device_index,
             keyword_path=args.keyword_path,
@@ -211,7 +222,4 @@ def main():
             rhino_sensitivity=args.rhino_sensitivity,
             require_endpoint=require_endpoint,
             output_path=os.path.expanduser(args.output_path) if args.output_path is not None else None).run()
-
-
-if __name__ == '__main__':
-    main()
+'''
