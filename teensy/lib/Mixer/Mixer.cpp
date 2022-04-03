@@ -39,15 +39,20 @@ bool Mixer::Mix(){
 }
 
 bool Mixer::Mix(int mix_time){
-    motor2.Move(FORWARD);
-    delay(100); //CHANGE THIS BEFORE TEST
-    motor2.Stop();
-    motor1.Move();
-    delay(mix_time);
-    motor1.Stop();
-    motor2.Move(REVERSE);
-    delay(100); //CHANGE THIS BEFORE TEST
-    motor2.Stop();
+    if (mix_time == 0) {
+        Mix();
+    }
+    else {
+        motor2.Move(FORWARD);
+        delay(100); //CHANGE THIS BEFORE TEST
+        motor2.Stop();
+        motor1.Move();
+        delay(mix_time);
+        motor1.Stop();
+        motor2.Move(REVERSE);
+        delay(100); //CHANGE THIS BEFORE TEST
+        motor2.Stop();
+    } 
 }
 
 void Mixer::Initialize(){

@@ -1,5 +1,8 @@
 #include <inttypes.h>
 
+#ifndef SHIFTREGISTER_H
+#define SHIFTREGISTER_H
+
 class shiftRegister {
     public:
     shiftRegister();
@@ -17,3 +20,5 @@ class shiftRegister {
 
     uint8_t pinout;
 };
+
+#endif

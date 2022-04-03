@@ -1,3 +1,6 @@
+#ifndef HALLEFFECT_H
+#define HALLEFFECT_H
+
 class hallEffect {
     public:
     
@@ -12,3 +15,5 @@ class hallEffect {
     int signal_pin;
     bool hallSensorValue;
 };
+
+#endif

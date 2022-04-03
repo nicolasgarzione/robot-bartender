@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "hallEffect.h"
 
-hallEffect::hallEffect(int signalpin) {
+hallEffect::hallEffect() {
     signal_pin = 16;
     Initialize();
 }

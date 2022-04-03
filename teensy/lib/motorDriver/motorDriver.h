@@ -1,3 +1,6 @@
+#ifndef MOTORDRIVER_H
+#define MOTORDRIVER_H
+
 class motorDriver{
     public:
 
@@ -24,3 +27,5 @@ class motorDriver{
     int speed;
     bool static_a_b_pins;
 };
+
+#endif
