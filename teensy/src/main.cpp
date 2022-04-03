@@ -25,14 +25,17 @@ const int DEFAULT_MIX_TIME = 100; //change this
 const int MIXER_LINEAR_SPEED = 100; //change this
 const int MIXER_ROTATION_SPEED = 100; //change this
 
+
+
 //PID MotorPID(&input, &output, &setpoint, kp, ki, kd, lowerlimit, upperlimit, samplerate, pon);
 
 void setup() { //NEEDS TO BE INCLUDED TO COMPILE
     drinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN);
     cupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
-    rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN. TABLE_ROTATION_SPEED);
+    rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, TABLE_ROTATION_SPEED);
     Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1A_PIN, DC1B_PIN, MIXER_LINEAR_SPEED);
 
+    Serial.begin(9600);
     while (!Serial) {
         // Waits for serial connection, also allows for reset to return to this checkpoint
     }
@@ -40,10 +43,6 @@ void setup() { //NEEDS TO BE INCLUDED TO COMPILE
 }
 
 void loop() { //NEEDS TO BE INCLUDED TO COMPILE
-    char msg[] = "Hello from Teensy!";
-    Serial.write(msg, sizeof(msg));
-    digitalWrite(LED_PIN, HIGH);
-    delay(1000);
-    digitalWrite(LED_PIN, LOW);
-    delay(1000);
+    
 }
+
