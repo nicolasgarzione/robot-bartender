@@ -6,8 +6,14 @@ Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwmA, int pwmB, int speed2){
     motorDriver motor1_init(pwm1);
     motorDriver motor2_init(pwm2, pwmA, pwmB);
 
+    motor1 = motor1_init;
+    motor2 = motor2_init;
+
     int motor1_speed = speed1;
     int motor2_speed = speed2;
+
+    motor1.setSpeed(motor1_speed);
+    motor2.setSpeed(motor2_speed);
 
     default_mix_time = 100; //arbitrary value;
 
@@ -18,8 +24,11 @@ Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwmA, int pwmB, int speed2, int
     motorDriver motor1_init(pwm1);
     motorDriver motor2_init(pwm2, pwmA, pwmB);
 
-    int motor1_speed = speed1;
-    int motor2_speed = speed2;
+    motor1 = motor1_init;
+    motor2 = motor2_init;
+
+    motor1.setSpeed(motor1_speed);
+    motor2.setSpeed(motor2_speed);
 
     default_mix_time = mix_time;
 
@@ -56,8 +65,6 @@ bool Mixer::Mix(int mix_time){
 }
 
 void Mixer::Initialize(){
-    motor1.setSpeed(motor1_speed);
-    motor2.setSpeed(motor2_speed);
     motor1.Stop();
     motor2.Stop();
 }
