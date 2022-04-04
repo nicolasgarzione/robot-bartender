@@ -45,6 +45,8 @@ bool Mixer::Mix(){
     motor2.Move(REVERSE);
     delay(100); //CHANGE THIS BEFORE TEST
     motor2.Stop();
+
+    return true;
 }
 
 bool Mixer::Mix(int mix_time){
@@ -62,6 +64,8 @@ bool Mixer::Mix(int mix_time){
         delay(100); //CHANGE THIS BEFORE TEST
         motor2.Stop();
     } 
+
+    return true;
 }
 
 void Mixer::Initialize(){
