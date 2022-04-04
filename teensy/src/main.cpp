@@ -30,7 +30,7 @@ const int DEFAULT_MIX_TIME = 100; //change this
 const int MIXER_LINEAR_SPEED = 100; //change this
 const int MIXER_ROTATION_SPEED = 100; //change this
 
-String cmd;
+std::string cmd;
 std::string split1;
 std::string split2;
 std::string split3;
@@ -64,8 +64,21 @@ void setup() { //NEEDS TO BE INCLUDED TO COMPILE
 }
 
 void loop() { //NEEDS TO BE INCLUDED TO COMPILE
-    if (Serial.available() > 0) {
-        cmd = Serial.readStringUntil('\n');
+    if (Serial.available() == 6) {
+        cmd = "";
+        split1.clear();
+        split2.clear();
+        split3.clear();
+        ss1.str(std::string());
+        ss1.clear();
+        ss2.str(std::string());
+        ss2.clear();
+
+        subsystem = 'Z';
+        identifier = 0;
+        value = 0;
+
+        cmd = Serial.readStringUntil('\n').c_str();
 
         split1 = cmd[0];
 
@@ -90,13 +103,6 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
 
         continue_indicator = executeCMD(subsystem, value, identifier);
         Serial.println(continue_indicator);
-
-        cmd = "";
-        split1.clear();
-        split2.clear();
-        split3.clear();
-        ss1.str(std::string());
-        ss2.str(std::string());
     }
 }
 
