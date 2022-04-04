@@ -16,23 +16,28 @@ rotateTable::rotateTable(int pwm, int digital_in, int turnspeed){
 
 bool rotateTable::Rotate(){
     motor.Move();
-    while(sensor.Read()){}
     while(!sensor.Read()){}
+    while(sensor.Read()){}
     motor.Stop();
 
     return true;
 }
 
 bool rotateTable::Rotate(int n){
-    motor.Move();
-    int i = 0;
-    while(i < n + 1){
-        while(sensor.Read()){}
-        while(!sensor.Read()){}
+    if(n == 0){
+        Rotate();
     }
-    motor.Stop();
+    else{
+        motor.Move();
+        int i = 0;
+        while(i < n + 1){
+            while(!sensor.Read()){}
+            while(sensor.Read()){}
+        }
+        motor.Stop();
 
-    return true;
+        return true;
+    }
 }
 
 void rotateTable::Initialize(){

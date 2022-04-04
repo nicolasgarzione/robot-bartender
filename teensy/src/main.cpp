@@ -121,7 +121,7 @@ bool executeCMD(char subsystem, int value, int identifier) {
             should_continue = true;
             break;
         case 'D':
-            mixer.Mix(value);
+            mixer.Mix();
             should_continue = true;
             break;
         case 'Z': //to ping 

@@ -15,7 +15,7 @@ Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwmA, int pwmB, int speed2){
     motor1.setSpeed(motor1_speed);
     motor2.setSpeed(motor2_speed);
 
-    default_mix_time = 100; //arbitrary value;
+    default_mix_time = 1000; //arbitrary value;
 
     Initialize();
 }
@@ -55,13 +55,13 @@ bool Mixer::Mix(int mix_time){
     }
     else {
         motor2.Move(FORWARD);
-        delay(100); //CHANGE THIS BEFORE TEST
+        delay(1000); //CHANGE THIS BEFORE TEST
         motor2.Stop();
         motor1.Move();
         delay(mix_time);
         motor1.Stop();
         motor2.Move(REVERSE);
-        delay(100); //CHANGE THIS BEFORE TEST
+        delay(1000); //CHANGE THIS BEFORE TEST
         motor2.Stop();
     } 
 

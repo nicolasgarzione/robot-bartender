@@ -27,6 +27,7 @@ void motorDriver::Move(){ //use default speed
 
 void motorDriver::Move(int setspeed){
     analogWrite(pwm_pin, setspeed);
+    return;
 }
 
 void motorDriver::Move(bool direction){ //forward = true
@@ -55,6 +56,8 @@ void motorDriver::Move(int setspeed, bool direction){
 
 void motorDriver::Stop(){
     Move(0);
+    digitalWrite(a_pin, LOW);
+    digitalWrite(a_pin, LOW);
 }
 
 void motorDriver::Initialize(){
