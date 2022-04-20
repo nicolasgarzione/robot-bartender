@@ -1,12 +1,13 @@
-import serialCommand
-import serial
+import sys
+import os
 
-def main():
-    ser = serial.Serial('/dev/ttyUSB0')
-    command = serialCommand(ser)
-    command.push_packet('CM',255)
-    command.push_packet('CA',0)
-    command.send_packet()
+sys.path.append(os.path.join(os.getcwd(),'RPi'))
 
-if __name__ == "__main__":
-    main()
+from robotbartender import menu, ser
+
+ser1 = ser()
+menu1 = menu()
+
+recipe = menu1.get_recipe('Screwdriver')
+
+ser1.send_serial(recipe)

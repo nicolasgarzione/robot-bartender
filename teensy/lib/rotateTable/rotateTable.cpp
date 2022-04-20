@@ -16,8 +16,8 @@ rotateTable::rotateTable(int pwm, int digital_in, int turnspeed){
 
 bool rotateTable::Rotate(){
     motor.Move();
-    while(!sensor.Read()){}
-    while(sensor.Read()){}
+    while(!sensor.Read()){delay(5);}
+    while(sensor.Read()){delay(5);}
     motor.Stop();
 
     return true;

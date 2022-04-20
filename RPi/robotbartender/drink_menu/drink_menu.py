@@ -60,7 +60,7 @@ class drink_menu:
             comparearray1 = self.drink_menu[index,1:dim1[1]-1].astype(float)
             comparearray2 = self.drink_list[index,1:dim2[1]-1].astype(float)
             if np.sum(comparearray1) == np.sum(comparearray2):
-                return self.drink_list[index,:]
+                return self.drink_menu[index,1:None]
             else:
                 return False
         else:
