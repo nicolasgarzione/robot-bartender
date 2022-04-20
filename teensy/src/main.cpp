@@ -25,10 +25,10 @@ const int SERVO1PWM_PIN = 19;
 const int SERVO2PWM_PIN = 18;
 const int HALLEFFECT_PIN = 16;
 
-const int TABLE_ROTATION_SPEED = 100; //change this
+const int TABLE_ROTATION_SPEED = 256; //change this
 const int DEFAULT_MIX_TIME = 100; //change this
 const int MIXER_LINEAR_SPEED = 100; //change this
-const int MIXER_ROTATION_SPEED = 256; //change this
+const int MIXER_ROTATION_SPEED = 100; //change this
 
 std::string cmd;
 std::string split1;
