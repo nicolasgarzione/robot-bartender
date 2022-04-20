@@ -16,8 +16,8 @@ class PicovoiceBartender(Thread):
     #__context_path = "C:/Users/nicg1/Desktop/robot-bartender/nano/robotbartender/picovoiceBartender/Bartender_en_windows_v2_1_0.rhn"
     #__keyword_path = os.path.dirname('Bartender_en_windows_v2_1_0.ppn')
     #__context_path = os.path.dirname('Bartender_en_windows_v2_1_0.rhn')
-    __keyword_path = os.path.dirname(__file__)+'\Bartender_en_windows_v2_1_0.ppn'
-    __context_path = os.path.dirname(__file__)+'\Bartender_en_windows_v2_1_0.rhn' 
+    __keyword_path = os.path.join(os.path.dirname(__file__),"Bartender_en_windows_v2_1_0.ppn")
+    __context_path = os.path.join(os.path.dirname(__file__),"Bartender_en_windows_v2_1_0.rhn")
 
     def __init__(
             self,

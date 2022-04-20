@@ -1,5 +1,6 @@
-from robotbartender import pv
+from robotbartender import pv, menu
 pv1 = pv()
+menu1 = menu()
 
 def main():
     pv1.run()
