@@ -30,7 +30,7 @@ bool rotateTable::Rotate(int n){
     else{
         motor.Move();
         int i = 0;
-        while(i <= n){
+        while(i < n){
             while(!sensor.Read()){delay(5);}
             while(sensor.Read()){delay(5);}
         }
