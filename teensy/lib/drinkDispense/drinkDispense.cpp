@@ -14,11 +14,22 @@ drinkDispense::drinkDispense(
 
 bool drinkDispense::dispense(
     int pinout,
-    int time) { //time in ms
+    int input) { //time in ms
 
-    shiftout.Update(pinout);
-    delay(time);
-    shiftout.Reset();
+    numofdrinks = input*0.01;
+    if (numofdrinks < 1) {
+        shiftout.Update(pinout);
+        delay(drinkdispensetime*numofdrinks);
+        shiftout.Reset();
+    }
+    else {
+        for (int i = round(numofdrinks); i >= 0; i--) {
+            shiftout.Update(pinout);
+            delay(drinkdispensetime);
+            shiftout.Reset();
+        }
+    }
+    
 
     return true;
 }

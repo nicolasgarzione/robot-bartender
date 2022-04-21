@@ -7,4 +7,6 @@ class drinkDispense {
 
     private:
     shiftRegister shiftout;
+    double numofdrinks;
+    int drinkdispensetime = 100;
 };
