@@ -6,6 +6,7 @@
 //#include "PID.h"
 #include "cupDispense.h"
 #include "drinkDispense.h"
+#include "iceDispense.h"
 #include "rotateTable.h"
 #include "Mixer.h"
 
@@ -26,6 +27,7 @@ const int SERVO2PWM_PIN = 18;
 const int HALLEFFECT_PIN = 16;
 
 const int TABLE_ROTATION_SPEED = 256; //change this
+const int ICE_DISPENSE_SPEED = 100;
 const int DEFAULT_MIX_TIME = 100; //change this
 const int MIXER_LINEAR_SPEED = 100; //change this
 const int MIXER_ROTATION_SPEED = 100; //change this
@@ -49,6 +51,7 @@ bool executeCMD(char, int, int);
 
 drinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN);
 cupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
+iceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED);
 rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, TABLE_ROTATION_SPEED);
 Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1A_PIN, DC1B_PIN, MIXER_LINEAR_SPEED);
 
@@ -109,7 +112,7 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
 bool executeCMD(char subsystem, int value, int identifier) {
     switch(subsystem) {
         case 'A':
-            table.Rotate(value);
+            table.rotate(value);
             should_continue = true;
             break;
         case 'B':
@@ -121,10 +124,11 @@ bool executeCMD(char subsystem, int value, int identifier) {
             should_continue = true;
             break;
         case 'D':
-            mixer.Mix();
+            mixer.mix();
             should_continue = true;
             break;
         case 'E': //ice
+            ice.dispense();
             break;
         case 'X': //error 
             break;

@@ -5,8 +5,8 @@ class rotateTable{
     public:
 
     rotateTable(int, int, int); //PWM pin, hall effect pin, table turn speed
-    bool Rotate();
-    bool Rotate(int); //rotate past multiple turns
+    bool rotate();
+    bool rotate(int); //rotate past multiple turns
 
     private:
 

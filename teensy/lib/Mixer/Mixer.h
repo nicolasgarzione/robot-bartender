@@ -5,8 +5,8 @@ class Mixer{
 
     Mixer(int, int, int, int, int, int); //Motor 1 PWM, Motor 1 speed, Motor 2 PWM, Motor 2 A, Motor 2 B, Motor 2 speed
     Mixer(int, int, int, int, int, int, int); //Above plus default mix time
-    bool Mix();
-    bool Mix(int); //time in ms
+    bool mix();
+    bool mix(int); //time in ms
 
     private:
 

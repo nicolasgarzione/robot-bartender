@@ -35,7 +35,7 @@ Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwmA, int pwmB, int speed2, int
     Initialize();
 }
 
-bool Mixer::Mix(){
+bool Mixer::mix(){
     motor2.Move(FORWARD);
     delay(100); //CHANGE THIS BEFORE TEST
     motor2.Stop();
@@ -49,9 +49,9 @@ bool Mixer::Mix(){
     return true;
 }
 
-bool Mixer::Mix(int mix_time){
+bool Mixer::mix(int mix_time){
     if (mix_time == 0) {
-        Mix();
+        mix();
     }
     else {
         motor2.Move(FORWARD);
