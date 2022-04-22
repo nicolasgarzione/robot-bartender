@@ -63,7 +63,7 @@ void setup() { //NEEDS TO BE INCLUDED TO COMPILE
     while (!Serial) {
         // Waits for serial connection, also allows for reset to return to this checkpoint
     }
-    Serial.println("This should show up in serial monitor");
+    //Serial.println("This should show up in serial monitor");
 }
 
 void loop() { //NEEDS TO BE INCLUDED TO COMPILE
@@ -100,12 +100,18 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
         ss2 << split3;
         ss2 >> identifier;
 
-        Serial.println(subsystem);
-        Serial.println(value);
-        Serial.println(identifier);
+        //Serial.println(subsystem);
+        //Serial.println(value);
+        //Serial.println(identifier);
 
         continue_indicator = executeCMD(subsystem, value, identifier);
-        Serial.println(continue_indicator);
+        if (continue_indicator == true) {
+            Serial.println('1');
+        }
+        else {
+            Serial.println('0');
+        }
+        //Serial.println(continue_indicator);
     }
 }
 
@@ -131,6 +137,7 @@ bool executeCMD(char subsystem, int value, int identifier) {
             ice.dispense();
             break;
         case 'X': //error 
+            should_continue = false;
             break;
         case 'Z': //to ping 
             should_continue = true;
