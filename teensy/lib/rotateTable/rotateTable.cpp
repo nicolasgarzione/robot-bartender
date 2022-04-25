@@ -26,6 +26,8 @@ bool rotateTable::rotate(){
 bool rotateTable::rotate(int n){
     if(n == 0){
         rotate();
+
+        return true;
     }
     else{
         motor.Move();

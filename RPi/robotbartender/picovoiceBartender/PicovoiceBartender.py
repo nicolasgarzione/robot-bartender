@@ -2,6 +2,7 @@ import os
 import sys
 import struct
 import wave
+import argparse
 from threading import Thread
 
 import numpy as np
@@ -18,6 +19,8 @@ class PicovoiceBartender(Thread):
     #__context_path = os.path.dirname('Bartender_en_windows_v2_1_0.rhn')
     __keyword_path = os.path.join(os.path.dirname(__file__),"Bartender_en_windows_v2_1_0.ppn")
     __context_path = os.path.join(os.path.dirname(__file__),"Bartender_en_windows_v2_1_0.rhn")
+
+    drink = 'none'
 
     def __init__(
             self,
@@ -85,6 +88,10 @@ class PicovoiceBartender(Thread):
         self.audio_device_index = audio_device_index
         self.output_path = output_path
 
+        Thread.__init__(self)
+        self.daemon = True
+        self.start()
+
     @staticmethod
     def _wake_word_callback():
         print('[wake word]\n')
@@ -99,6 +106,7 @@ class PicovoiceBartender(Thread):
                 print("    %s : '%s'" % (slot, value))
             print('  }')
             print('}\n')
+            PicovoiceBartender.drink = inference.slots
         else:
             print("Didn't understand the command.\n")
 
@@ -121,9 +129,16 @@ class PicovoiceBartender(Thread):
                 pcm = recorder.read()
 
                 if wav_file is not None:
-                    wav_file.writeframes(struct.pack("h" * len(pcm), *pcm))
+                    try:
+                        wav_file.writeframes(struct.pack("h" * len(pcm), *pcm))
+                    except:
+                        pass
+                
+                try:
+                    self._picovoice.process(pcm)
+                except:
+                    pass
 
-                self._picovoice.process(pcm)
         except KeyboardInterrupt:
             sys.stdout.write('\b' * 2)
             print('Stopping ...')
@@ -135,6 +150,8 @@ class PicovoiceBartender(Thread):
                 wav_file.close()
 
             self._picovoice.delete()
+
+            exit()
 
     @classmethod
     def show_audio_devices(cls):
@@ -201,7 +218,7 @@ def main():
         require_endpoint = True
 
     if args.show_audio_devices:
-        pv.show_audio_devices()
+        PicovoiceBartender.show_audio_devices()
     else:
         if not args.keyword_path:
             raise ValueError("Missing path to Porcupine's keyword file.")
@@ -209,7 +226,7 @@ def main():
         if not args.context_path:
             raise ValueError("Missing path to Rhino's context file.")
 
-        pv(
+        PicovoiceBartender(
             access_key=args.access_key,
             audio_device_index=args.audio_device_index,
             keyword_path=args.keyword_path,
@@ -222,4 +239,7 @@ def main():
             rhino_sensitivity=args.rhino_sensitivity,
             require_endpoint=require_endpoint,
             output_path=os.path.expanduser(args.output_path) if args.output_path is not None else None).run()
+
+if __name__ == '__main__':
+    main()
 '''
