@@ -2,9 +2,9 @@
 #include "Mixer.h"
 #include "motorDriver.h"
 
-Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwmA, int pwmB, int speed2){
+Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwm2_reverse, int speed2){
     motorDriver motor1_init(pwm1);
-    motorDriver motor2_init(pwm2, pwmA, pwmB);
+    motorDriver motor2_init(pwm2, pwm2_reverse);
 
     motor1 = motor1_init;
     motor2 = motor2_init;
@@ -20,9 +20,9 @@ Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwmA, int pwmB, int speed2){
     Initialize();
 }
 
-Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwmA, int pwmB, int speed2, int mix_time){
+Mixer::Mixer(int pwm1, int speed1, int pwm2, int pwm2_reverse, int speed2, int mix_time){
     motorDriver motor1_init(pwm1);
-    motorDriver motor2_init(pwm2, pwmA, pwmB);
+    motorDriver motor2_init(pwm2, pwm2_reverse);
 
     motor1 = motor1_init;
     motor2 = motor2_init;

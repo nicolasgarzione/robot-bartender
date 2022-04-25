@@ -9,5 +9,6 @@ ser1 = ser()
 menu1 = menu()
 
 recipe = menu1.get_recipe('Screwdriver')
+print(recipe)
 
-ser1.send_serial(recipe)
+ser1.send_recipe(recipe)

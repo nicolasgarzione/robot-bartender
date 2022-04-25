@@ -24,7 +24,7 @@ class drinkMake(Thread):
              recipe = menu1.get_recipe(self.queue.pop(0))
              #print(self.queue)
              #print(recipe)
-             ser1.send_serial(recipe)
+             ser1.send_recipe(recipe)
              sleep(1)
 
 

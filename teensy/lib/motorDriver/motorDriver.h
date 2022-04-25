@@ -9,7 +9,7 @@ class motorDriver{
 
     motorDriver();
     motorDriver(int); //PWM pin
-    motorDriver(int, int, int); //PWM, A, B
+    motorDriver(int, int); //PWM, PWM_reverse
     void setSpeed(int);
     void Move(); //use default speed, set direction
     void Move(int); //variable speed, set diretion
@@ -22,10 +22,9 @@ class motorDriver{
     void Initialize();
 
     int pwm_pin;
-    int a_pin;
-    int b_pin;
+    int pwm_reverse_pin;
     int speed;
-    bool static_a_b_pins;
+    bool static_direction;
 };
 
 #endif

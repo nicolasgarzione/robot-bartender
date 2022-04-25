@@ -13,8 +13,7 @@
 
 const int RX_PIN = 0;
 const int TX_PIN = 1;
-const int DC1A_PIN = 2;
-const int DC1B_PIN = 3;
+const int DC1PWM_REVERSE_PIN = 3;
 const int DC1PWM_PIN = 4;
 const int DC2PWM_PIN = 5;
 const int DC3PWM_PIN = 6;
@@ -25,6 +24,7 @@ const int CLOCK_PIN = 12;
 const int SERVO1PWM_PIN = 19;
 const int SERVO2PWM_PIN = 18;
 const int HALLEFFECT_PIN = 16;
+const int LED_PIN = 13;
 
 const int TABLE_ROTATION_SPEED = 256; //change this
 const int ICE_DISPENSE_SPEED = 100;
@@ -53,7 +53,7 @@ drinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN);
 cupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
 iceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED);
 rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, TABLE_ROTATION_SPEED);
-Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1A_PIN, DC1B_PIN, MIXER_LINEAR_SPEED);
+Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1PWM_REVERSE_PIN, MIXER_LINEAR_SPEED);
 
 
 //PID MotorPID(&input, &output, &setpoint, kp, ki, kd, lowerlimit, upperlimit, samplerate, pon);
@@ -64,10 +64,12 @@ void setup() { //NEEDS TO BE INCLUDED TO COMPILE
         // Waits for serial connection, also allows for reset to return to this checkpoint
     }
     //Serial.println("This should show up in serial monitor");
+    pinMode(LED_PIN, OUTPUT);
 }
 
 void loop() { //NEEDS TO BE INCLUDED TO COMPILE
-    if (Serial.available() == 6) {
+    if (Serial.available() == 7) {
+        digitalWrite(LED_PIN, HIGH);
         cmd = "";
         split1.clear();
         split2.clear();
@@ -111,30 +113,36 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
         else {
             Serial.println('0');
         }
+        digitalWrite(LED_PIN, LOW);
         //Serial.println(continue_indicator);
+    }
+    else if (Serial.available() > 6) {
+        Serial.println('0');
+        Serial.flush();
     }
 }
 
 bool executeCMD(char subsystem, int value, int identifier) {
     switch(subsystem) {
         case 'A':
-            table.rotate(value);
-            should_continue = true;
+            should_continue = table.rotate(value);
+            //should_continue = true;
             break;
         case 'B':
-            drink.dispense(identifier, value);
-            should_continue = true;
+            should_continue = drink.dispense(identifier, value);
+            //should_continue = true;
             break;
         case 'C':
-            cup.dispense();
-            should_continue = true;
+            should_continue = cup.dispense();
+            //should_continue = true;
             break;
         case 'D':
-            mixer.mix();
-            should_continue = true;
+            should_continue = mixer.mix();
+            //should_continue = true;
             break;
         case 'E': //ice
-            ice.dispense();
+            should_continue = ice.dispense();
+            //should_continue = true;
             break;
         case 'X': //error 
             should_continue = false;
