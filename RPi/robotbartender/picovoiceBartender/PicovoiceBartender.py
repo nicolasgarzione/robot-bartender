@@ -1,5 +1,7 @@
 import os
 import sys
+sys.stdout = open(os.devnull, 'a')
+sys.stderr = open(os.devnull, 'a')
 import struct
 import wave
 import argparse
