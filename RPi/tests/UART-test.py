@@ -1,3 +1,5 @@
+#outdated test to try efficient UART communication method
+
 from serial import Serial
 import struct
 
