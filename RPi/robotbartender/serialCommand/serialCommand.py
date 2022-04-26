@@ -14,26 +14,15 @@ class serialCommand(Thread):
         recieved = '0'
 
         while stop == False:
-            #ret = False
-            #while ret == False:
-            #    print('trying...')
-            #    ret = self.try_to_open_new_port()
-            #print('did I get here?')
             self.ser.write(bytes(('Z00000'+'\n').encode('utf-8')))
             sleep(0.5)
-            #print('what about here?')
             try:
                 recieved = self.ser.readline().decode('utf-8').rstrip()
-                #print(self.ser.readline())
             except:
                 recieved = '0'
             self.ser.flush()
-            #print('here?')
-            #print(recieved)
             if recieved == '1':
-                print('probbaly not here?')
                 self.ser.write(bytes(('A00000'+'\n').encode('utf-8')))
-                print('rotation sent')
                 stop = True
 
     def send_recipe(self, recipe):
@@ -44,11 +33,8 @@ class serialCommand(Thread):
         for x in range(0,recipe.size,1):
             list_temp.append(recipe[0,0,x].tolist())
         list_temp.append("mix")
-        #for x in range(0,3+recipe.size-1,1):
-            #print(list_temp[x])
 
         command_list = list_temp
-        print(command_list)
         length = len(command_list)
 
         self.serial_send('A00000'+'\n')
@@ -72,11 +58,8 @@ class serialCommand(Thread):
                 index_input = str(index)
             else:
                 index_input = '0'+str(index)
-            print(input)
             int_input = int(input)
             int_input *= 100
-            print(input)
-            print(index)
             if int_input == 0:
                 string_to_send = 'B'+'00'+str(int_input)+index_input
             else:
@@ -105,6 +88,8 @@ class serialCommand(Thread):
         self.ser.write(bytes(command.encode('utf-8')))
         while recieved == '0':
             recieved = self.ser.readline().decode('utf-8').rstrip()
+        print('done')
+        
 
 
 
