@@ -11,4 +11,6 @@ menu1 = menu()
 recipe = menu1.get_recipe('Screwdriver')
 print(recipe)
 
+input('press enter')
+
 ser1.send_recipe(recipe)

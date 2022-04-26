@@ -13,7 +13,7 @@ iceDispense::iceDispense(int pwm, int turnspeed){
 
 bool iceDispense::dispense(){
     motor.Move();
-    delay(1000);
+    delay(ice_dispense_time);
     motor.Stop();
 
     return true;

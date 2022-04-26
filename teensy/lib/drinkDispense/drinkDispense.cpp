@@ -15,6 +15,9 @@ drinkDispense::drinkDispense(
 bool drinkDispense::dispense(
     int pinout,
     int input) { //time in ms
+    Serial.print(pinout);
+    Serial.print(input);
+    delay(10);
 
     numofdrinks = input*0.01;
     if (numofdrinks < 1) {
@@ -23,13 +26,13 @@ bool drinkDispense::dispense(
         shiftout.Reset();
     }
     else {
-        for (int i = round(numofdrinks); i >= 0; i--) {
+        for (int i = round(numofdrinks); i > 0; i--) {
             shiftout.Update(pinout);
             delay(drinkdispensetime);
             shiftout.Reset();
+            delay(drinkrefilltime);
         }
     }
-    
 
     return true;
 }

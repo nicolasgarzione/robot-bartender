@@ -24,11 +24,12 @@ const int CLOCK_PIN = 12;
 const int SERVO1PWM_PIN = 19;
 const int SERVO2PWM_PIN = 18;
 const int HALLEFFECT_PIN = 16;
+const int HALLEFFECT_POWER_PIN = 17;
 const int LED_PIN = 13;
 
 const int TABLE_ROTATION_SPEED = 256; //change this
 const int ICE_DISPENSE_SPEED = 100;
-const int DEFAULT_MIX_TIME = 100; //change this
+const int DEFAULT_MIX_TIME = 1000; //change this
 const int MIXER_LINEAR_SPEED = 100; //change this
 const int MIXER_ROTATION_SPEED = 100; //change this
 
@@ -52,7 +53,7 @@ bool executeCMD(char, int, int);
 drinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN);
 cupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
 iceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED);
-rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, TABLE_ROTATION_SPEED);
+rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, HALLEFFECT_POWER_PIN, TABLE_ROTATION_SPEED);
 Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1PWM_REVERSE_PIN, MIXER_LINEAR_SPEED);
 
 

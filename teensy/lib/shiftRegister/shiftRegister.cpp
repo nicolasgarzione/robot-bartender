@@ -70,7 +70,6 @@ void shiftRegister::Update(int set){
         digitalWrite(latch_pin, HIGH);
         delay(300);
     }
-    
 }
 
 void shiftRegister::Initialize(){

@@ -31,8 +31,9 @@ class serialCommand(Thread):
             #print('here?')
             #print(recieved)
             if recieved == '1':
-                #print('probbaly not here?')
+                print('probbaly not here?')
                 self.ser.write(bytes(('A00000'+'\n').encode('utf-8')))
+                print('rotation sent')
                 stop = True
 
     def send_recipe(self, recipe):
@@ -66,7 +67,7 @@ class serialCommand(Thread):
             elif input == "ice":
                 string_to_send = 'E00000'
         else:
-            index -= 3
+            index -= 2
             if index > 9:
                 index_input = str(index)
             else:

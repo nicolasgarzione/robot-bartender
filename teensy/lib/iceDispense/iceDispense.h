@@ -13,4 +13,5 @@ class iceDispense{
     motorDriver motor;
 
     int turn_speed;
+    int ice_dispense_time = 1000;
 };
