@@ -112,13 +112,13 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
             Serial.println('1');
         }
         else {
-            Serial.println('0');
+            //Serial.println('0');
         }
         digitalWrite(LED_PIN, LOW);
         //Serial.println(continue_indicator);
     }
     else if (Serial.available() > 6) {
-        Serial.println('0');
+        //Serial.println('0');
         Serial.flush();
     }
 }
