@@ -10,7 +10,6 @@
 #include "rotateTable.h"
 #include "Mixer.h"
 
-
 const int RX_PIN = 0;
 const int TX_PIN = 1;
 const int DC1PWM_REVERSE_PIN = 3;
@@ -55,14 +54,12 @@ cupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
 iceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED);
 rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, HALLEFFECT_POWER_PIN, TABLE_ROTATION_SPEED);
 Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1PWM_REVERSE_PIN, MIXER_LINEAR_SPEED);
-
-
 //PID MotorPID(&input, &output, &setpoint, kp, ki, kd, lowerlimit, upperlimit, samplerate, pon);
 
 void setup() { //NEEDS TO BE INCLUDED TO COMPILE
     Serial.begin(9600);
     while (!Serial) {
-        // Waits for serial connection, also allows for reset to return to this checkpoint
+        // Waits for serial connection
     }
     //Serial.println("This should show up in serial monitor");
     pinMode(LED_PIN, OUTPUT);
@@ -112,13 +109,13 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
             Serial.println('1');
         }
         else {
-            //Serial.println('0');
+            Serial.println('0');
         }
         digitalWrite(LED_PIN, LOW);
         //Serial.println(continue_indicator);
     }
     else if (Serial.available() > 6) {
-        //Serial.println('0');
+        Serial.println('0');
         Serial.flush();
     }
 }
