@@ -2,6 +2,8 @@ import os
 import sys
 import csv
 import numpy as np
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class drink_menu:
     def __init__(self):
@@ -66,5 +68,12 @@ class drink_menu:
         else:
             return False
 
+    def get_drink_list(self):
+        dim = self.drink_list.shape
+        for i in range(1,dim[0],1):
+            drink = self.drink_list[i,0]
+            recipe = self.get_recipe(drink)
+            if recipe != False:
+                print(drink)
             
 

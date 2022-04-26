@@ -31,8 +31,8 @@ class drinkMake(Thread):
 
 
 def main():
-    print('running')
     while True:
+        menu1.get_drink_list()
         try:
             if pv1.drink != 'none':
                 drink = pv1.drink.get('beverage')
