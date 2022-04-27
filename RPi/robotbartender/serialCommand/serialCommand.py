@@ -8,6 +8,7 @@ class serialCommand(Thread):
     __port = 'COM8'
 
     def __init__(self):
+        print('started')
         self.ser = serial.Serial(self.__port, 9600)
         sleep(1)
         stop = False
@@ -22,7 +23,6 @@ class serialCommand(Thread):
                 recieved = '0'
             self.ser.flush()
             if recieved == '1':
-                self.ser.write(bytes(('A00000'+'\n').encode('utf-8')))
                 stop = True
 
     def send_recipe(self, recipe):
@@ -42,6 +42,8 @@ class serialCommand(Thread):
         for x in range(0, length, 1):
             command = self.serial_command(command_list[x],x+1) + '\n'
             self.serial_send(command)
+            if command == 'cup':
+                self.serial_send('A00000'+'\n')
             self.serial_send('A00000'+'\n')
 
     def serial_command(self, input, index):

@@ -13,10 +13,11 @@ cupDispense::cupDispense(int pin1, int pin2) {
 }
 
 bool cupDispense::dispense() {
+    delay(200);
+    servo1.write(70); servo2.write(95);
     delay(1000);
     servo1.write(140); servo2.write(25);
     delay(1000);
-    servo1.write(70); servo2.write(95);
 
     return true;
 }

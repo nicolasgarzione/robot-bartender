@@ -59,8 +59,12 @@ class drink_menu:
             index = np.where(self.drink_menu[:,0] == drink)
             dim1 = self.drink_menu.shape
             dim2 = self.drink_list.shape
-            comparearray1 = self.drink_menu[index,1:dim1[1]-1].astype(float)
+            #print(self.drink_menu[index,1:dim1[1]-1])
+            #print(self.drink_list[index,1:dim2[1]-1])
+            comparearray1 = self.drink_menu[index,1:dim1[1]].astype(float)
+            #print(comparearray1)
             comparearray2 = self.drink_list[index,1:dim2[1]-1].astype(float)
+            #print(comparearray2)
             if np.sum(comparearray1) == np.sum(comparearray2):
                 return self.drink_menu[index,1:None]
             else:
@@ -71,6 +75,7 @@ class drink_menu:
     def get_drink_list(self):
         dim = self.drink_list.shape
         for i in range(1,dim[0],1):
+            #print(self.drink_list[i,0])
             drink = self.drink_list[i,0]
             recipe = self.get_recipe(drink)
             if recipe != False:

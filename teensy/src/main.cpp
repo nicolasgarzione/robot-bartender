@@ -28,9 +28,9 @@ const int LED_PIN = 13;
 
 const int TABLE_ROTATION_SPEED = 256; //change this
 const int ICE_DISPENSE_SPEED = 100;
-const int DEFAULT_MIX_TIME = 1000; //change this
+const int DEFAULT_MIX_TIME = 3000; //change this
 const int MIXER_LINEAR_SPEED = 100; //change this
-const int MIXER_ROTATION_SPEED = 100; //change this
+const int MIXER_ROTATION_SPEED = 256; //change this
 
 std::string cmd;
 std::string split1;

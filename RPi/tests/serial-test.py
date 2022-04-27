@@ -8,7 +8,8 @@ from robotbartender import menu, ser
 ser1 = ser()
 menu1 = menu()
 
-recipe = menu1.get_recipe('Screwdriver')
+menu1.get_drink_list()
+recipe = menu1.get_recipe('Whiskey Coke')
 print(recipe)
 
 input('press enter')

@@ -3,6 +3,7 @@ from drink_menu import menu
 from serialCommand import ser
 from threading import Thread
 from time import sleep
+
 pv1 = pv()
 menu1 = menu()
 ser1 = ser()
@@ -21,14 +22,17 @@ class drinkMake(Thread):
     def run(self):
         while True:
             if self.queue:
-             recipe = menu1.get_recipe(self.queue.pop(0))
-             ser1.send_recipe(recipe)
-             sleep(1)
+                recipe = menu1.get_recipe(self.queue.pop(0))
+                if recipe != False:
+                    ser1.send_recipe(recipe)
+                else:
+                    print('That drink is not avaliable')
+                    sleep(1)
 
 
 def main():
+    menu1.get_drink_list()
     while True:
-        menu1.get_drink_list()
         try:
             if pv1.drink != 'none':
                 drink = pv1.drink.get('beverage')

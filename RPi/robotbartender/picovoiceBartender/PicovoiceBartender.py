@@ -1,7 +1,8 @@
 import os
 import sys
-sys.stdout = open(os.devnull, 'a')
-sys.stderr = open(os.devnull, 'a')
+#sys.stdout = open(os.devnull, 'a')
+#sys.stderr = open(os.devnull, 'a')
+#sys.stdout = open(os.devnull, 'w')
 import struct
 import wave
 import argparse
@@ -10,6 +11,9 @@ from threading import Thread
 import numpy as np
 from picovoice import *
 from pvrecorder import PvRecorder
+
+#import warnings
+#warnings.filterwarnings("ignore", message="Overflow - reader is not reading fast enough.")
 
 class PicovoiceBartender(Thread):
     __access_key =  '8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=='

@@ -7,6 +7,9 @@ from robotbartender import menu
 
 menu1 = menu()
 
+#print(menu1.drink_list)
+#print(menu1.drink_menu)
+#print(menu1.get_recipe('Margarita'))
 menu1.get_drink_list()
 
 '''

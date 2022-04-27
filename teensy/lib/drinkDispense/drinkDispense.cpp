@@ -20,7 +20,10 @@ bool drinkDispense::dispense(
     delay(10);
 
     numofdrinks = input*0.01;
-    if (numofdrinks < 1) {
+    if (numofdrinks == 0) {
+        // do nothing
+    }
+    else if (numofdrinks < 1) {
         shiftout.Update(pinout);
         delay(drinkdispensetime*numofdrinks);
         shiftout.Reset();
@@ -32,6 +35,7 @@ bool drinkDispense::dispense(
             shiftout.Reset();
             delay(drinkrefilltime);
         }
+        shiftout.Reset();
     }
 
     return true;
