@@ -1,1 +1,0 @@
-from .serialcommand import SerialCommand as Command
