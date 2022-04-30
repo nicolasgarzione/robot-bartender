@@ -1,3 +1,3 @@
-from .picovoiceBartender import pv
-from .drink_menu import menu
-from .serialCommand import ser
+from .picovoicebartender import PV
+from .drinkmenu import Menu
+from .serialcommand import Command

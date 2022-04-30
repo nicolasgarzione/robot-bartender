@@ -3,12 +3,12 @@ import os
 
 sys.path.append(os.path.join(os.getcwd(),'RPi'))
 
-from robotbartender import menu
+from robotbartender import Menu
 
-menu1 = menu()
+menu = Menu()
 
-result = menu1.get_recipe('Rum and Coke')
+result = menu.get_recipe('Rum and Coke')
 print(result)
 
-result = menu1.get_recipe('Screwdriver')
+result = menu.get_recipe('Screwdriver')
 print(result)

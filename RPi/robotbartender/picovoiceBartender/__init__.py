@@ -1,1 +1,1 @@
-from .PicovoiceBartender import PicovoiceBartender as pv
+from .picovoicebartender import PicovoiceBartender as PV

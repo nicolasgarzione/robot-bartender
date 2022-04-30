@@ -1,32 +1,30 @@
 import serial
 from time import sleep
-import numpy as np
 from threading import Thread
 
-class serialCommand(Thread):
+class SerialCommand(Thread):
 
     __port = 'COM8'
 
     def __init__(self):
         print('started')
-        self.ser = serial.Serial(self.__port, 9600)
+        self.serial = serial.Serial(self.__port, 9600)
         sleep(1)
         stop = False
         recieved = '0'
 
         while stop == False:
-            self.ser.write(bytes(('Z00000'+'\n').encode('utf-8')))
+            self.serial.write(bytes(('Z00000'+'\n').encode('utf-8')))
             sleep(0.5)
             try:
-                recieved = self.ser.readline().decode('utf-8').rstrip()
+                recieved = self.serial.readline().decode('utf-8').rstrip()
             except:
                 recieved = '0'
-            self.ser.flush()
+            self.serial.flush()
             if recieved == '1':
                 stop = True
 
     def send_recipe(self, recipe):
-        index = 0
         list_temp = list()
         list_temp.append("cup")
         list_temp.append("ice")
@@ -68,28 +66,12 @@ class serialCommand(Thread):
                 string_to_send = 'B'+str(int_input)+index_input
         return string_to_send
 
-    def rotate_command(self, numofturns):
-        pass
-
-    def try_to_open_new_port(self):
-        ret = False
-        test = serial.Serial(baudrate=9600, timeout=0, writeTimeout=0)
-        test.port = self.__port
-        try:
-            test.open()
-            if test.isOpen():
-                test.close()
-                ret = True
-        except serial.serialutil.SerialException:
-            pass
-        return ret
-
     def serial_send(self, command):
         print(f'sending: {command}')
         recieved = '0'
-        self.ser.write(bytes(command.encode('utf-8')))
+        self.serial.write(bytes(command.encode('utf-8')))
         while recieved == '0':
-            recieved = self.ser.readline().decode('utf-8').rstrip()
+            recieved = self.serial.readline().decode('utf-8').rstrip()
         print('done')
         
 

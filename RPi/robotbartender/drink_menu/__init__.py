@@ -1,1 +1,0 @@
-from .drink_menu import drink_menu as menu

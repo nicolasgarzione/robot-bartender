@@ -1,16 +1,14 @@
-from picovoiceBartender import pv
-from drink_menu import menu
-from serialCommand import ser
+from picovoicebartender import PV
+from drinkmenu import Menu
+from serialcommand import Command
 from threading import Thread
 from time import sleep
 
-pv1 = pv()
-menu1 = menu()
-ser1 = ser()
+pv = PV()
+menu = Menu()
+command = Command()
 
-queue = []
-
-class drinkMake(Thread):
+class MakeDrink(Thread):
     queue = []
 
     def __init__(self):
@@ -22,26 +20,26 @@ class drinkMake(Thread):
     def run(self):
         while True:
             if self.queue:
-                recipe = menu1.get_recipe(self.queue.pop(0))
+                recipe = menu.get_recipe(self.queue.pop(0))
                 if recipe != False:
-                    ser1.send_recipe(recipe)
+                    command.send_recipe(recipe)
                 else:
                     print('That drink is not avaliable')
                     sleep(1)
 
 
 def main():
-    menu1.get_drink_list()
+    menu.get_drink_list()
     while True:
         try:
-            if pv1.drink != 'none':
-                drink = pv1.drink.get('beverage')
+            if pv.drink != 'none':
+                drink = pv.drink.get('beverage')
                 make.queue.append(drink)
-                pv1.drink = 'none'
+                pv.drink = 'none'
                 sleep(.1)
         except:
             sleep(.1)
 
 if __name__ == '__main__':
-    make = drinkMake()
+    make = MakeDrink()
     main()

@@ -3,8 +3,8 @@ import os
 
 sys.path.append(os.path.join(os.getcwd(),'RPi'))
 
-from robotbartender import menu, ser
+from robotbartender import Command
 
-ser1 = ser()
+command = Command()
 
-ser.ser.write(bytes(('E00000'+'\n').encode('utf-8')))
+command.serial.write(bytes(('E00000'+'\n').encode('utf-8')))

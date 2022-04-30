@@ -4,12 +4,12 @@ from time import sleep
 
 sys.path.append(os.path.join(os.getcwd(),'RPi'))
 
-from robotbartender import ser
+from robotbartender import Command
 
-ser1 = ser()
+command = Command()
 
-ser.ser.write(bytes(('B10001'+'\n').encode('utf-8')))
+command.serial.write(bytes(('B10001'+'\n').encode('utf-8')))
 
-recieved = ser.ser.readline().decode('utf-8').rstrip()
+recieved = command.serial.readline().decode('utf-8').rstrip()
 
 print(recieved)

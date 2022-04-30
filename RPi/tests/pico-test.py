@@ -3,9 +3,9 @@ import os
 
 sys.path.append(os.path.join(os.getcwd(),'RPi'))
 
-from robotbartender import pv
+from robotbartender import PV
 
-pv1 = pv()
+pv = PV()
 
 while True:
     pass

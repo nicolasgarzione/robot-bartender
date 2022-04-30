@@ -3,15 +3,17 @@ import os
 
 sys.path.append(os.path.join(os.getcwd(),'RPi'))
 
-from robotbartender import menu, ser
+from robotbartender import Menu
+from robotbartender import Command
 
-ser1 = ser()
-menu1 = menu()
+menu = Menu()
+command = Command()
 
-menu1.get_drink_list()
-recipe = menu1.get_recipe('Whiskey Coke')
+
+menu.get_drink_list()
+recipe = menu.get_recipe('Whiskey Coke')
 print(recipe)
 
 input('press enter')
 
-ser1.send_recipe(recipe)
+command.send_recipe(recipe)

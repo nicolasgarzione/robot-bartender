@@ -1,1 +1,1 @@
-from .serialCommand import serialCommand as ser
+from .serialcommand import SerialCommand as Command

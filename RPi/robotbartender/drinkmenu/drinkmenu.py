@@ -1,11 +1,10 @@
 import os
-import sys
 import csv
 import numpy as np
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-class drink_menu:
+class DrinkMenu:
     def __init__(self):
         tap_path = os.path.join(os.getcwd(),'RPi','data','on_tap.csv')
         on_tap = self.csv_reader(tap_path)
@@ -26,11 +25,11 @@ class drink_menu:
 
         return result
 
-    def csv_cut(self, twoD_list, oneD_list):
-        two_list = np.copy(twoD_list)
+    def csv_cut(self, two_d_list, one_d_list):
+        two_list = np.copy(two_d_list)
         i = 1
-        while i < oneD_list.size:
-            if two_list[0,i] in oneD_list[0,:]:
+        while i < one_d_list.size:
+            if two_list[0,i] in one_d_list[0,:]:
                 i = i + 1
             else:
                 temp = np.delete(two_list, i, 1)
@@ -38,33 +37,29 @@ class drink_menu:
 
         return two_list
 
-    def csv_order(self, twoD_list, oneD_list):
-        dim = twoD_list.shape
+    def csv_order(self, two_d_list, one_d_list):
+        dim = two_d_list.shape
         position = [0]
         i = 0
-        while i < oneD_list.size:
+        while i < one_d_list.size:
             j = 1
             while j < dim[1]:
-                if twoD_list[0,j] == oneD_list[0,i]:
+                if two_d_list[0,j] == one_d_list[0,i]:
                     position.append(j)
                     break
                 else:
                     j = j + 1  
             i = i + 1
 
-        return twoD_list[:,position]
+        return two_d_list[:,position]
 
     def get_recipe(self, drink):
         if drink in self.drink_list[:,0]:
             index = np.where(self.drink_menu[:,0] == drink)
             dim1 = self.drink_menu.shape
             dim2 = self.drink_list.shape
-            #print(self.drink_menu[index,1:dim1[1]-1])
-            #print(self.drink_list[index,1:dim2[1]-1])
             comparearray1 = self.drink_menu[index,1:dim1[1]].astype(float)
-            #print(comparearray1)
             comparearray2 = self.drink_list[index,1:dim2[1]-1].astype(float)
-            #print(comparearray2)
             if np.sum(comparearray1) == np.sum(comparearray2):
                 return self.drink_menu[index,1:None]
             else:
@@ -75,7 +70,6 @@ class drink_menu:
     def get_drink_list(self):
         dim = self.drink_list.shape
         for i in range(1,dim[0],1):
-            #print(self.drink_list[i,0])
             drink = self.drink_list[i,0]
             recipe = self.get_recipe(drink)
             if recipe != False:

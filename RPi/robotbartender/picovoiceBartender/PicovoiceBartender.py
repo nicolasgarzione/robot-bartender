@@ -1,30 +1,17 @@
 import os
 import sys
-#sys.stdout = open(os.devnull, 'a')
-#sys.stderr = open(os.devnull, 'a')
-#sys.stdout = open(os.devnull, 'w')
 import struct
 import wave
-import argparse
 from threading import Thread
-
-import numpy as np
 from picovoice import *
 from pvrecorder import PvRecorder
 
-#import warnings
-#warnings.filterwarnings("ignore", message="Overflow - reader is not reading fast enough.")
+#access_key = "8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=="
 
 class PicovoiceBartender(Thread):
     __access_key =  '8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=='
-    #__keyword_path = 'Bartender_en_windows_v2_1_0.ppn'
-    #__context_path = 'Bartender_en_windows_v2_1_0.rhn'
-    #__keyword_path = "C:/Users/nicg1/Desktop/robot-bartender/nano/robotbartender/picovoiceBartender/Bartender_en_windows_v2_1_0.ppn"
-    #__context_path = "C:/Users/nicg1/Desktop/robot-bartender/nano/robotbartender/picovoiceBartender/Bartender_en_windows_v2_1_0.rhn"
-    #__keyword_path = os.path.dirname('Bartender_en_windows_v2_1_0.ppn')
-    #__context_path = os.path.dirname('Bartender_en_windows_v2_1_0.rhn')
-    __keyword_path = os.path.join(os.path.dirname(__file__),"Bartender_en_windows_v2_1_0.ppn")
-    __context_path = os.path.join(os.path.dirname(__file__),"Bartender_en_windows_v2_1_0.rhn")
+    __keyword_path = os.path.join(os.getcwd(),'RPi','data',"Bartender_en_windows_v2_1_0.ppn")
+    __context_path = os.path.join(os.getcwd(),'RPi','data',"Bartender_en_windows_v2_1_0.rhn")
 
     drink = 'none'
 
@@ -165,87 +152,3 @@ class PicovoiceBartender(Thread):
 
         for i in range(len(devices)):
             print(f'index: {i}, device name: {devices[i]}')
-
-
-#access_key = "8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=="
-
-'''
-def main():
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        '--access_key',
-        help='AccessKey obtained from Picovoice Console (https://picovoice.ai/console/)',
-        required=True)
-
-    parser.add_argument('--keyword_path', help="Absolute path to a Porcupine keyword file.")
-
-    parser.add_argument('--context_path', help="Absolute path to a Rhino context file.")
-
-    parser.add_argument('--porcupine_library_path', help="Absolute path to Porcupine's dynamic library.", default=None)
-
-    parser.add_argument('--porcupine_model_path', help="Absolute path to Porcupine's model file.", default=None)
-
-    parser.add_argument(
-        '--porcupine_sensitivity',
-        help="Sensitivity for detecting wake word. Each value should be a number within [0, 1]. A higher sensitivity " +
-             "results in fewer misses at the cost of increasing the false alarm rate.",
-        type=float,
-        default=0.5)
-
-    parser.add_argument('--rhino_library_path', help="Absolute path to Rhino's dynamic library.", default=None)
-
-    parser.add_argument('--rhino_model_path', help="Absolute path to Rhino's model file.", default=None)
-
-    parser.add_argument(
-        '--rhino_sensitivity',
-        help="Inference sensitivity. It should be a number within [0, 1]. A higher sensitivity value results in fewer" +
-             "misses at the cost of (potentially) increasing the erroneous inference rate.",
-        type=float,
-        default=0.5)
-
-    parser.add_argument(
-        '--require_endpoint',
-        help="If set to `False`, Rhino does not require an endpoint (chunk of silence) before finishing inference.",
-        default='True',
-        choices=['True', 'False'])
-
-    parser.add_argument('--audio_device_index', help='index of input audio device', type=int, default=-1)
-
-    parser.add_argument('--output_path', help='Absolute path to recorded audio for debugging.', default=None)
-
-    parser.add_argument('--show_audio_devices', action='store_true')
-
-    args = parser.parse_args()
-
-    if args.require_endpoint.lower() == 'false':
-        require_endpoint = False
-    else:
-        require_endpoint = True
-
-    if args.show_audio_devices:
-        PicovoiceBartender.show_audio_devices()
-    else:
-        if not args.keyword_path:
-            raise ValueError("Missing path to Porcupine's keyword file.")
-
-        if not args.context_path:
-            raise ValueError("Missing path to Rhino's context file.")
-
-        PicovoiceBartender(
-            access_key=args.access_key,
-            audio_device_index=args.audio_device_index,
-            keyword_path=args.keyword_path,
-            context_path=args.context_path,
-            porcupine_library_path=args.porcupine_library_path,
-            porcupine_model_path=args.porcupine_model_path,
-            porcupine_sensitivity=args.porcupine_sensitivity,
-            rhino_library_path=args.rhino_library_path,
-            rhino_model_path=args.rhino_model_path,
-            rhino_sensitivity=args.rhino_sensitivity,
-            require_endpoint=require_endpoint,
-            output_path=os.path.expanduser(args.output_path) if args.output_path is not None else None).run()
-
-if __name__ == '__main__':
-    main()
-'''
