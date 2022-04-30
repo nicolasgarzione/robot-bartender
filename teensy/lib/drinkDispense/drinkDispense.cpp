@@ -1,18 +1,18 @@
 #include "Arduino.h"
-#include "drinkDispense.h"
-#include "shiftRegister.h"
+#include "DrinkDispense.h"
+#include "ShiftRegister.h"
 
-drinkDispense::drinkDispense(
+DrinkDispense::DrinkDispense(
     unsigned const int latchPin,
     unsigned const int clockPin,
     unsigned const int dataPin) {
 
-    shiftRegister register_init(latchPin, clockPin, dataPin);
+    ShiftRegister register_init(latchPin, clockPin, dataPin);
 
     shiftout = register_init;
 }
 
-bool drinkDispense::dispense(
+bool DrinkDispense::dispense(
     int pinout,
     int input) { //time in ms
     Serial.print(pinout);

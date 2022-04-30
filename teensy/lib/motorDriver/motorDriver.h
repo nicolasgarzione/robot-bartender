@@ -1,15 +1,15 @@
 #ifndef MOTORDRIVER_H
 #define MOTORDRIVER_H
 
-class motorDriver{
+class MotorDriver{
     public:
 
     #define FORWARD true
     #define REVERSE false
 
-    motorDriver();
-    motorDriver(int); //PWM pin
-    motorDriver(int, int); //PWM, PWM_reverse
+    MotorDriver();
+    MotorDriver(int); //PWM pin
+    MotorDriver(int, int); //PWM, PWM_reverse
     void setSpeed(int);
     void Move(); //use default speed, set direction
     void Move(int); //variable speed, set diretion

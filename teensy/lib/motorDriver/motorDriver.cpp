@@ -1,35 +1,35 @@
 #include "Arduino.h"
-#include "motorDriver.h"
+#include "MotorDriver.h"
 
-motorDriver::motorDriver(){}
+MotorDriver::MotorDriver(){}
 
-motorDriver::motorDriver(int PWMpin){
+MotorDriver::MotorDriver(int PWMpin){
     pwm_pin = PWMpin;
     static_direction = true;
     Initialize();
 }
 
-motorDriver::motorDriver(int PWMpin, int PWMreversepin){
+MotorDriver::MotorDriver(int PWMpin, int PWMreversepin){
     pwm_pin = PWMpin;
     pwm_reverse_pin = PWMreversepin;
     static_direction = false;
     Initialize();
 }
 
-void motorDriver::setSpeed(int setspeed){
+void MotorDriver::setSpeed(int setspeed){
     speed = setspeed;
 }
 
-void motorDriver::Move(){ //use default speed
+void MotorDriver::Move(){ //use default speed
     analogWrite(pwm_pin, speed);
 }
 
-void motorDriver::Move(int setspeed){
+void MotorDriver::Move(int setspeed){
     analogWrite(pwm_pin, setspeed);
     return;
 }
 
-void motorDriver::Move(bool direction){ //forward = true
+void MotorDriver::Move(bool direction){ //forward = true
     if (direction){
         analogWrite(pwm_pin, speed);
     }
@@ -38,7 +38,7 @@ void motorDriver::Move(bool direction){ //forward = true
     }
 }
 
-void motorDriver::Move(int setspeed, bool direction){
+void MotorDriver::Move(int setspeed, bool direction){
     if (direction){
         analogWrite(pwm_pin, setspeed);
     }
@@ -47,14 +47,14 @@ void motorDriver::Move(int setspeed, bool direction){
     }
 }
 
-void motorDriver::Stop(){
+void MotorDriver::Stop(){
     analogWrite(pwm_pin, 0);
     if(!static_direction){
         analogWrite(pwm_reverse_pin, 0);
     }
 }
 
-void motorDriver::Initialize(){
+void MotorDriver::Initialize(){
     pinMode(pwm_pin, OUTPUT);
     if(!static_direction){
         pinMode(pwm_reverse_pin, OUTPUT);

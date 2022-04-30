@@ -1,11 +1,11 @@
 #include "Arduino.h"
-#include "rotateTable.h"
-#include "hallEffect.h"
-#include "motorDriver.h"
+#include "RotateTable.h"
+#include "HallEffect.h"
+#include "MotorDriver.h"
 
-rotateTable::rotateTable(int pwm, int digital_in, int power_out, int turnspeed){
-    hallEffect sensor_init(digital_in);
-    motorDriver motor_init(pwm);
+RotateTable::RotateTable(int pwm, int digital_in, int power_out, int turnspeed){
+    HallEffect sensor_init(digital_in);
+    MotorDriver motor_init(pwm);
 
     powerout = power_out;
     sensor = sensor_init;
@@ -15,7 +15,7 @@ rotateTable::rotateTable(int pwm, int digital_in, int power_out, int turnspeed){
     Initialize();
 }
 
-bool rotateTable::rotate(){
+bool RotateTable::rotate(){
     digitalWrite(powerout, HIGH);
     motor.Move();
     while(!sensor.Read()){delay(5);}
@@ -26,7 +26,7 @@ bool rotateTable::rotate(){
     return true;
 }
 
-bool rotateTable::rotate(int n){
+bool RotateTable::rotate(int n){
     if(n == 0){
         rotate();
 
@@ -47,7 +47,7 @@ bool rotateTable::rotate(int n){
     }
 }
 
-void rotateTable::Initialize(){
+void RotateTable::Initialize(){
     motor.setSpeed(turn_speed);
     motor.Stop();
     pinMode(powerout, OUTPUT);

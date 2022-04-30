@@ -1,12 +1,12 @@
 #include "shiftRegister.h"
 
-class drinkDispense {
+class DrinkDispense {
     public:
-    drinkDispense(unsigned const int, unsigned const int, unsigned const int); //latchPin, clockPin, dataPin
+    DrinkDispense(unsigned const int, unsigned const int, unsigned const int); //latchPin, clockPin, dataPin
     bool dispense(int, int);
 
     private:
-    shiftRegister shiftout;
+    ShiftRegister shiftout;
     double numofdrinks;
     int drinkdispensetime = 4000;
     int drinkrefilltime = 4000;

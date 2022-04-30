@@ -1,7 +1,7 @@
 #include "Arduino.h"
-#include "shiftRegister.h"
+#include "ShiftRegister.h"
 
-shiftRegister::shiftRegister() {
+ShiftRegister::ShiftRegister() {
     latch_pin = 9;
     clock_pin = 12;
     data_pin = 11;
@@ -11,7 +11,7 @@ shiftRegister::shiftRegister() {
     Initialize();
 }
 
-shiftRegister::shiftRegister(
+ShiftRegister::ShiftRegister(
     unsigned const int latchPin,
     unsigned const int clockPin,
     unsigned const int dataPin) {
@@ -25,7 +25,7 @@ shiftRegister::shiftRegister(
     Initialize();
 }
 
-void shiftRegister::shiftOut(byte dataOut) {
+void ShiftRegister::shiftOut(byte dataOut) {
     i=0;
 
     pinMode(clock_pin, OUTPUT);
@@ -53,7 +53,7 @@ void shiftRegister::shiftOut(byte dataOut) {
     digitalWrite(clock_pin, 0);
 }
 
-void shiftRegister::Update(int set){
+void ShiftRegister::Update(int set){
     if (set > 7) {
         pinout = decimaltohex(set-7);
         digitalWrite(latch_pin, LOW);
@@ -72,15 +72,15 @@ void shiftRegister::Update(int set){
     }
 }
 
-void shiftRegister::Initialize(){
+void ShiftRegister::Initialize(){
     pinMode(latch_pin, OUTPUT);
     Update(0);
 }
 
-void shiftRegister::Reset(){
+void ShiftRegister::Reset(){
     Update(0);
 }
 
-byte shiftRegister::decimaltohex(int set){
+byte ShiftRegister::decimaltohex(int set){
     return hexarray[set];
 }

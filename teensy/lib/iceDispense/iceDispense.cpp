@@ -1,9 +1,9 @@
 #include "Arduino.h"
-#include "iceDispense.h"
-#include "motorDriver.h"
+#include "IceDispense.h"
+#include "MotorDriver.h"
 
-iceDispense::iceDispense(int pwm, int turnspeed){
-    motorDriver motor_init(pwm);
+IceDispense::IceDispense(int pwm, int turnspeed){
+    MotorDriver motor_init(pwm);
     
     motor = motor_init;
     turn_speed = turnspeed;
@@ -11,7 +11,7 @@ iceDispense::iceDispense(int pwm, int turnspeed){
     Initialize();
 }
 
-bool iceDispense::dispense(){
+bool IceDispense::dispense(){
     motor.Move();
     delay(ice_dispense_time);
     motor.Stop();
@@ -19,7 +19,7 @@ bool iceDispense::dispense(){
     return true;
 }
 
-void iceDispense::Initialize(){
+void IceDispense::Initialize(){
     motor.setSpeed(turn_speed);
     motor.Stop();
 }

@@ -12,8 +12,8 @@ class Mixer{
 
     void Initialize();
 
-    motorDriver motor1;
-    motorDriver motor2;
+    MotorDriver motor1;
+    MotorDriver motor2;
 
     int motor1_speed;
     int motor2_speed;

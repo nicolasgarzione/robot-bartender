@@ -3,10 +3,10 @@
 #ifndef SHIFTREGISTER_H
 #define SHIFTREGISTER_H
 
-class shiftRegister {
+class ShiftRegister {
     public:
-    shiftRegister();
-    shiftRegister(unsigned const int, unsigned const int, unsigned const int); //latchPin, clockPin, dataPin
+    ShiftRegister();
+    ShiftRegister(unsigned const int, unsigned const int, unsigned const int); //latchPin, clockPin, dataPin
     void shiftOut(byte);
     void Update(int);
     void Reset();

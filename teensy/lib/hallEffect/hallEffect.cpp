@@ -1,21 +1,21 @@
 #include "Arduino.h"
-#include "hallEffect.h"
+#include "HallEffect.h"
 
-hallEffect::hallEffect() {
+HallEffect::HallEffect() {
     signal_pin = 16;
     Initialize();
 }
 
-hallEffect::hallEffect(int signalpin) {
+HallEffect::HallEffect(int signalpin) {
     signal_pin = signalpin;
     Initialize();
 }
 
-bool hallEffect::Read(){
+bool HallEffect::Read(){
     hallSensorValue = digitalRead(signal_pin);
     return hallSensorValue;
 }
 
-void hallEffect::Initialize(){
+void HallEffect::Initialize(){
     pinMode(signal_pin, INPUT);
 }

@@ -1,16 +1,16 @@
-#include "motorDriver.h"
+#include "MotorDriver.h"
 
-class iceDispense{
+class IceDispense{
     public:
 
-    iceDispense(int, int); //PWM pin, screw turn speed
+    IceDispense(int, int); //PWM pin, screw turn speed
     bool dispense();
 
     private:
 
     void Initialize();
 
-    motorDriver motor;
+    MotorDriver motor;
 
     int turn_speed;
     int ice_dispense_time = 1000;

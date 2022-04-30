@@ -1,11 +1,11 @@
 #ifndef HALLEFFECT_H
 #define HALLEFFECT_H
 
-class hallEffect {
+class HallEffect {
     public:
     
-    hallEffect();
-    hallEffect(int);
+    HallEffect();
+    HallEffect(int);
     bool Read();
 
     private:

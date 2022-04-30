@@ -1,8 +1,8 @@
 #include "Arduino.h"
-#include "cupDispense.h"
+#include "CupDispense.h"
 #include "Servo.h"
 
-cupDispense::cupDispense(int pin1, int pin2) {
+CupDispense::CupDispense(int pin1, int pin2) {
     Servo createservo1;
     Servo createservo2;
     createservo1.attach(pin1);
@@ -12,7 +12,7 @@ cupDispense::cupDispense(int pin1, int pin2) {
     servo2 = createservo2;
 }
 
-bool cupDispense::dispense() {
+bool CupDispense::dispense() {
     delay(200);
     servo1.write(70); servo2.write(95);
     delay(1000);

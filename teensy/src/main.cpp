@@ -4,10 +4,10 @@
 
 #include <Arduino.h>
 //#include "PID.h"
-#include "cupDispense.h"
-#include "drinkDispense.h"
-#include "iceDispense.h"
-#include "rotateTable.h"
+#include "CupDispense.h"
+#include "DrinkDispense.h"
+#include "IceDispense.h"
+#include "RotateTable.h"
 #include "Mixer.h"
 
 const int RX_PIN = 0;
@@ -49,10 +49,10 @@ bool should_continue;
 
 bool executeCMD(char, int, int);
 
-drinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN);
-cupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
-iceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED);
-rotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, HALLEFFECT_POWER_PIN, TABLE_ROTATION_SPEED);
+DrinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN);
+CupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
+IceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED);
+RotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, HALLEFFECT_POWER_PIN, TABLE_ROTATION_SPEED);
 Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1PWM_REVERSE_PIN, MIXER_LINEAR_SPEED);
 //PID MotorPID(&input, &output, &setpoint, kp, ki, kd, lowerlimit, upperlimit, samplerate, pon);
 

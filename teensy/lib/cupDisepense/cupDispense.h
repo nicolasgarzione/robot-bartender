@@ -1,8 +1,8 @@
 #include "Servo.h"
 
-class cupDispense {
+class CupDispense {
     public:
-    cupDispense(int pin1, int pin2);
+    CupDispense(int pin1, int pin2);
     bool dispense();
 
     private:
