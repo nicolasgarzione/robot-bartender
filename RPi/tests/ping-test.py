@@ -1,3 +1,7 @@
+# Author: Nicolas Garzione
+# Robot Bartender
+# 4/30/2022
+
 import sys
 import os
 from time import sleep
@@ -7,6 +11,9 @@ sys.path.append(os.path.join(os.getcwd(),'RPi'))
 from robotbartender import Command
 
 command = Command()
+
+# A test script that pings the Teensy to verify
+# a serial connection is established.
 
 while stop == False:
             command.serial.write(bytes(('Z00000'+'\n').encode('utf-8')))

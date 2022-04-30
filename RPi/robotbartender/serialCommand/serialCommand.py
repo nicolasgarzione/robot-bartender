@@ -1,15 +1,39 @@
+# Author: Nicolas Garzione
+# Robot Bartender
+# 4/30/2022
+
 import serial
 from time import sleep
 from threading import Thread
 
-class SerialCommand(Thread):
+# A package to handle all serial communication with the
+# Teensy microcontroller. 
 
-    __port = 'COM8'
+class SerialCommand(Thread):
+    # Serial packets take the form: # A12345
+    #
+    # A : subsystem being called
+    # 123 : value being sent
+    # 45 : identifier within subsystem
+    #
+    # The subsystems for this project are:
+    #
+    # A : table rotate
+    # B : drink dispense
+    # C : cup disepense
+    # D : mixer
+    # E : ice dispense
+    # X : throw error
+    # z : ping
+
+    __port = 'COM8' # Specific to windows computer
 
     def __init__(self):
+        # Establishes the serial communication and pings
+        # the Teensy.
         print('started')
         self.serial = serial.Serial(self.__port, 9600)
-        sleep(1)
+        sleep(1) # Necessary to wait for serial communication to establish 
         stop = False
         recieved = '0'
 
@@ -25,6 +49,10 @@ class SerialCommand(Thread):
                 stop = True
 
     def send_recipe(self, recipe):
+        # Builds array of commands to be sent to the Teensy.
+        # These commands are then sent one by one to the 
+        # Teensy and waits for its response after every
+        # command sent.
         list_temp = list()
         list_temp.append("cup")
         list_temp.append("ice")
@@ -45,6 +73,7 @@ class SerialCommand(Thread):
             self.serial_send('A00000'+'\n')
 
     def serial_command(self, input, index):
+        # Determines what packet should be sent given a command.
         if input == "mix" or input == "cup" or input == "ice":
             if input == "cup":
                 string_to_send = 'C00000'
@@ -57,16 +86,18 @@ class SerialCommand(Thread):
             if index > 9:
                 index_input = str(index)
             else:
-                index_input = '0'+str(index)
+                index_input = '0' + str(index)
             int_input = int(input)
             int_input *= 100
             if int_input == 0:
-                string_to_send = 'B'+'00'+str(int_input)+index_input
+                string_to_send = 'B' + '00' + str(int_input) + index_input
             else:
-                string_to_send = 'B'+str(int_input)+index_input
+                string_to_send = 'B' + str(int_input) + index_input
         return string_to_send
 
     def serial_send(self, command):
+        # Sends packet to the Teensy and waits
+        # for a response.
         print(f'sending: {command}')
         recieved = '0'
         self.serial.write(bytes(command.encode('utf-8')))

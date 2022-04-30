@@ -1,6 +1,10 @@
-#outdated test script to try recipe formulation
+# Author: Stephen Otto
+# Robot Bartender
+# 4/30/2022
 
 import csv
+
+# An outdated test script to try recipe formulation.
 
 def DrinkList():
     file = open("drinklist.csv")

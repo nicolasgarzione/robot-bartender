@@ -1,3 +1,7 @@
+# Author: Nicolas Garzione
+# Robot Bartender
+# 4/30/2022
+
 import sys
 import os
 
@@ -9,6 +13,8 @@ from robotbartender import Command
 menu = Menu()
 command = Command()
 
+# A test script to test full functionality excluding
+# voice recognition.
 
 menu.get_drink_list()
 recipe = menu.get_recipe('Whiskey Coke')

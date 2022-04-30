@@ -1,11 +1,26 @@
+# Author: Nicolas Garzione
+# Robot Bartender
+# 4/30/2022
+
 import os
 import csv
 import numpy as np
 import warnings
+
 warnings.simplefilter(action='ignore', category=FutureWarning)
+
+# A package that formulates drink recipes given a CSV of
+# drink recipes and a CSV of the drinks currently on tap. 
+#
+# The purpose of this package is to rearrange the recipes
+# so that they: will follow the order the drinks are in on 
+# the bartender and not allow drinks to be made if not all
+# the ingredients are present.
 
 class DrinkMenu:
     def __init__(self):
+        # Imports the two CSVs needed and executes all functions
+        # necessary to provide refined drink menu.
         tap_path = os.path.join(os.getcwd(),'RPi','data','on_tap.csv')
         on_tap = self.csv_reader(tap_path)
 
@@ -19,6 +34,7 @@ class DrinkMenu:
         self.drink_menu = ordered_drink_list
 
     def csv_reader(self, filename):
+        # A function to read CSVs in to NumPy arrays
         reader = csv.reader(open(filename, "r"), delimiter=",")
         x = list(reader)
         result = np.array(x)
@@ -26,6 +42,8 @@ class DrinkMenu:
         return result
 
     def csv_cut(self, two_d_list, one_d_list):
+        # A function to cut down the recipe book
+        # to only include the ingredients on tap.
         two_list = np.copy(two_d_list)
         i = 1
         while i < one_d_list.size:
@@ -38,6 +56,9 @@ class DrinkMenu:
         return two_list
 
     def csv_order(self, two_d_list, one_d_list):
+        # A function to order the cut down recipe
+        # book to be in the order of the drinks on 
+        # tap.
         dim = two_d_list.shape
         position = [0]
         i = 0
@@ -54,6 +75,8 @@ class DrinkMenu:
         return two_d_list[:,position]
 
     def get_recipe(self, drink):
+        # Determines if recipe can be made and if so it 
+        # returns it.
         if drink in self.drink_list[:,0]:
             index = np.where(self.drink_menu[:,0] == drink)
             dim1 = self.drink_menu.shape
@@ -68,6 +91,8 @@ class DrinkMenu:
             return False
 
     def get_drink_list(self):
+        # Lists all drinks that can be made
+        # wth the curent ingredients
         dim = self.drink_list.shape
         for i in range(1,dim[0],1):
             drink = self.drink_list[i,0]

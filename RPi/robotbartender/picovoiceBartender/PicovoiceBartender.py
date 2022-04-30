@@ -6,10 +6,14 @@ from threading import Thread
 from picovoice import *
 from pvrecorder import PvRecorder
 
-#access_key = "8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=="
+# A package downloaded and modified to b a callable thread.
+# PicoVoice uses Porcupine for wake words an Rhinocerous for
+# intent in speech. This code is not my oroginal work, it is
+# a modified demo script.
 
 class PicovoiceBartender(Thread):
-    __access_key =  '8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw=='
+    # These private variables are specific to windows computers
+    __access_key =  '8cOb8NKsxqn4yohAH6LU3FRmSuNGpBmnjXPuoeadaqYw2tIgfTuAAw==' 
     __keyword_path = os.path.join(os.getcwd(),'RPi','data',"Bartender_en_windows_v2_1_0.ppn")
     __context_path = os.path.join(os.getcwd(),'RPi','data',"Bartender_en_windows_v2_1_0.rhn")
 

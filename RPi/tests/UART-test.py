@@ -1,9 +1,12 @@
-#outdated test to try efficient UART communication method
-
 from serial import Serial
 import struct
 
-serial = Serial('/dev/ttyUSB0', 115200, 8, 'N', 1)  ### This serial port name may be various on OS or machine
+# An outdated test to try efficient UART communication method.
+# Original intent was to try a method of serial communication
+# to take advantage of Teensy communication capabilities.
+# This ended up being uneeded for this project. 
+
+serial = Serial('/dev/ttyUSB0', 115200, 8, 'N', 1)  
 print(serial.isOpen())
 
 serial.flushInput()
@@ -24,12 +27,11 @@ while (1):
         snr = byte5
         check_sum_transmitter = byte6
         check_sum_receiver = (byte2 + byte3 + byte4 + byte5) & 0xFF
-        ALTITUDE = byte3 + (byte4 << 8)
+        MESSAGE = byte3 + (byte4 << 8)
 
-        ### Print received data
         if (check_sum_receiver == check_sum_transmitter):
-            if (ALTITUDE > 0):
-                print("checksum passed and altitude data is valid!  Altitude:  " + str(ALTITUDE) + ", SNR:" + str(snr) + '\r\n'"")
+            if (MESSAGE > 0):
+                print("checksum passed and altitude data is valid!  Altitude:  " + str(MESSAGE) + ", SNR:" + str(snr) + '\r\n'"")
             else:
                 print ("checksum passed, but altitude data is not valid! ")
         else:

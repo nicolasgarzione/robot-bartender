@@ -1,3 +1,7 @@
+# Author: Nicolas Garzione
+# Robot Bartender
+# 4/30/2022
+
 from picovoicebartender import PV
 from drinkmenu import Menu
 from serialcommand import Command
@@ -9,6 +13,9 @@ menu = Menu()
 command = Command()
 
 class MakeDrink(Thread):
+    # A thread that maintains a queue of drinks that have been ordered
+    # so far. The drink is verified and if it is able to be made, it is
+    # then sent to the serial command package.  
     queue = []
 
     def __init__(self):
@@ -29,6 +36,9 @@ class MakeDrink(Thread):
 
 
 def main():
+    # The main function constantly checks if a drink has been ordered.
+    # When a drink has been ordered, it is sent to the MakeDrink thread
+    # to be processed.
     menu.get_drink_list()
     while True:
         try:
