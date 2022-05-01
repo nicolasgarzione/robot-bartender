@@ -10,7 +10,7 @@
 class ShiftRegister {
     public:
     ShiftRegister();
-    ShiftRegister(uint8_t, uint8_t, uint8_t); //latchPin, clockPin, dataPin
+    ShiftRegister(uint8_t, uint8_t, uint8_t); 
     void shift_out(byte);
     void update(int);
     void reset();

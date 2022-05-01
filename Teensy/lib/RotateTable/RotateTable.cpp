@@ -1,6 +1,9 @@
 // Author : Nicolas Garzione
 // Robot Bartender
 // 4/30/2022
+//
+// A class to allow the table to
+// rotate at set increments.
 
 #include "Arduino.h"
 #include "RotateTable.h"
@@ -20,6 +23,7 @@ RotateTable::RotateTable(uint8_t pwm_arg, uint8_t digital_pin_arg, uint8_t power
 }
 
 bool RotateTable::rotate(){
+    // Rotates the table once.
     digitalWrite(power_pin, HIGH);
     motor.move();
     while(!sensor.read()){delay(5);}
@@ -31,6 +35,8 @@ bool RotateTable::rotate(){
 }
 
 bool RotateTable::rotate(uint8_t n){
+    // Rotates the table the given number
+    // of times.
     if(n == 0){
         rotate();
 

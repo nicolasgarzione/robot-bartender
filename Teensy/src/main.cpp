@@ -1,6 +1,10 @@
 // Author : Nicolas Garzione
 // Robot Bartender
 // 4/30/2022
+//
+// The main program is responsible for sending/reciving
+// serial data along with commanding each process of the 
+// bartender.
 
 #include <iostream>
 #include <sstream>
@@ -29,11 +33,14 @@ const uint8_t HALLEFFECT_PIN = 16;
 const uint8_t HALLEFFECT_POWER_PIN = 17;
 const uint8_t LED_PIN = 13;
 
-const uint8_t TABLE_ROTATION_SPEED = 256; //change this
+const uint8_t TABLE_ROTATION_SPEED = 255; 
+const uint16_t DRINK_DISPENSE_TIME = 4000;
+const uint16_t DRINK_REFILL_TIME = 4000;
 const uint8_t ICE_DISPENSE_SPEED = 100;
-const uint16_t DEFAULT_MIX_TIME = 3000; //change this
-const uint8_t MIXER_LINEAR_SPEED = 100; //change this
-const uint8_t MIXER_ROTATION_SPEED = 256; //change this
+const uint16_t ICE_DISPENSE_TIME = 5000;
+const uint16_t DEFAULT_MIX_TIME = 3000; 
+const uint8_t MIXER_LINEAR_SPEED = 100; 
+const uint8_t MIXER_ROTATION_SPEED = 255; 
 
 std::string cmd;
 std::string split1;
@@ -52,9 +59,9 @@ bool should_continue;
 
 bool executeCMD(char, int, int);
 
-DrinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN);
+DrinkDispense drink(LATCH_PIN, CLOCK_PIN, DATA_PIN, DRINK_DISPENSE_TIME, DRINK_REFILL_TIME);
 CupDispense cup(SERVO1PWM_PIN, SERVO2PWM_PIN);
-IceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED);
+IceDispense ice(DC4PWM_PIN, ICE_DISPENSE_SPEED, ICE_DISPENSE_TIME);
 RotateTable table(DC3PWM_PIN, HALLEFFECT_PIN, HALLEFFECT_POWER_PIN, TABLE_ROTATION_SPEED);
 Mixer mixer(DC2PWM_PIN, MIXER_ROTATION_SPEED, DC1PWM_PIN, DC1PWM_REVERSE_PIN, MIXER_LINEAR_SPEED);
 
@@ -65,12 +72,15 @@ void setup() { //NEEDS TO BE INCLUDED TO COMPILE
 }
 
 void loop() { //NEEDS TO BE INCLUDED TO COMPILE
-    if (Serial.available() == 7) {
+    if (Serial.available() == 7) { // looks for 7 byte packet
         digitalWrite(LED_PIN, HIGH);
+
         cmd = "";
+
         split1.clear();
         split2.clear();
         split3.clear();
+
         ss1.str(std::string());
         ss1.clear();
         ss2.str(std::string());
@@ -80,7 +90,7 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
         identifier = 0;
         value = 0;
 
-        cmd = Serial.readStringUntil('\n').c_str();
+        cmd = Serial.readStringUntil('\n').c_str(); // read the packet as a string
 
         split1 = cmd[0];
 
@@ -100,12 +110,14 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
         ss2 >> identifier;
 
         continue_indicator = executeCMD(subsystem, value, identifier);
+
         if (continue_indicator == true) {
             Serial.println('1');
         }
         else {
             Serial.println('0');
         }
+
         digitalWrite(LED_PIN, LOW);
     }
     else if (Serial.available() > 6) {
@@ -115,26 +127,28 @@ void loop() { //NEEDS TO BE INCLUDED TO COMPILE
 }
 
 bool executeCMD(char subsystem, int value, int identifier) {
+    // A function to command the subsystems based on the
+    // serial command recieved.
     switch(subsystem) {
-        case 'A':
+        case 'A': // rotate table
             should_continue = table.rotate(value);
             break;
-        case 'B':
+        case 'B': // dispense drink
             should_continue = drink.dispense(identifier, value);
             break;
-        case 'C':
+        case 'C': // dispense cup
             should_continue = cup.dispense();
             break;
-        case 'D':
+        case 'D': // mix
             should_continue = mixer.mix();
             break;
-        case 'E': 
+        case 'E': // dispense ice
             should_continue = ice.dispense();
             break;
-        case 'X':  
+        case 'X': // throw error
             should_continue = false;
             break;
-        case 'Z':  
+        case 'Z': // send ping
             should_continue = true;
             break;
         default:

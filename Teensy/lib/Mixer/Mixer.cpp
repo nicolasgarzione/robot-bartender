@@ -1,6 +1,8 @@
 // Authors : Nicolas Garzione, Tejas Bhagoliwal
 // Robot Bartender
 // 4/30/2022
+//
+// A class to command the mixer mechanism.
 
 #include "Arduino.h"
 #include "Mixer.h"
@@ -40,17 +42,17 @@ Mixer::Mixer(uint8_t pwm_pin_1_arg, uint8_t speed_1_arg, uint8_t pwm_pin_2_arg, 
 }
 
 bool Mixer::mix(){
-    delay(200);
+    delay(200);                 // Wait
     motor_2.move(FORWARD);
-    delay(450); //CHANGE THIS BEFORE TEST
+    delay(450);                 // Rack moves down
     motor_2.stop();
-    delay(400);
+    delay(400);                 // Wait
     motor_1.move();
-    delay(default_mix_time);
+    delay(default_mix_time);    // Mix
     motor_1.stop();
-    delay(400);
+    delay(400);                 // Wait
     motor_2.move(REVERSE);
-    delay(570); //CHANGE THIS BEFORE TEST
+    delay(570);                 // Rack moves back up
     motor_2.stop();
 
     return true;
@@ -61,17 +63,17 @@ bool Mixer::mix(uint16_t mix_time){
         mix();
     }
     else {
-        delay(200);
+        delay(200);                 // Wait
         motor_2.move(FORWARD);
-        delay(450); //CHANGE THIS BEFORE TEST
+        delay(450);                 // Rack moves down
         motor_2.stop();
-        delay(400);
+        delay(400);                 // Wait
         motor_1.move();
-        delay(mix_time);
+        delay(mix_time);    // Mix
         motor_1.stop();
-        delay(400);
+        delay(400);                 // Wait
         motor_2.move(REVERSE);
-        delay(570); //CHANGE THIS BEFORE TEST
+        delay(570);                 // Rack moves back up
         motor_2.stop();
     } 
 

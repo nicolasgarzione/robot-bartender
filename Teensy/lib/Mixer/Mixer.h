@@ -22,5 +22,5 @@ class Mixer{
     uint8_t motor_1_speed;
     uint8_t motor_2_speed;
 
-    uint8_t default_mix_time;
+    uint16_t default_mix_time;
 };

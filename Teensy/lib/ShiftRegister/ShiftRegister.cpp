@@ -1,6 +1,9 @@
 // Author : Nicolas Garzione
 // Robot Bartender
 // 4/30/2022
+//
+// A class to interface the Teensy with
+// the shift registers.
 
 #include "Arduino.h"
 #include "ShiftRegister.h"
@@ -30,6 +33,8 @@ ShiftRegister::ShiftRegister(
 }
 
 void ShiftRegister::shift_out(byte dataOut) {
+    // Operation to update shift registers 
+    // to set given pin to high
     i=0;
 
     pinMode(clock_pin, OUTPUT);
@@ -58,6 +63,10 @@ void ShiftRegister::shift_out(byte dataOut) {
 }
 
 void ShiftRegister::update(int set){
+    // Given a number, update the shift
+    // registers to set that pin to high.
+    // Can utilize daisy-chained shift
+    // registers.
     if (set > 7) {
         pinout = decimal_to_hex(set-7);
         digitalWrite(latch_pin, LOW);
